@@ -42,7 +42,7 @@ public class RegistrationServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.jdbc.Driver"); // enables the application to recognize the MySQL database
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/youtube","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/youtube?useSSL=false","root","root");
             PreparedStatement pst = con.prepareStatement("insert into users(uname, upwd, uemail, umobile) values(?,?,?,?)");
             pst.setString(1, uname);
             pst.setString(2, upwd);
@@ -53,9 +53,11 @@ public class RegistrationServlet extends HttpServlet {
             dispatcher = request.getRequestDispatcher("registration.jsp");
 
             if (rowCount > 0) {
-                request.setAttribute("status", "success"); // insertion successful
+                request.setAttribute("status", "success"); // database insertion successful
+                request.getRequestDispatcher("registration.jsp").forward(request, response);
             } else {
                 request.setAttribute("status", "failed");
+                request.getRequestDispatcher("registration.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

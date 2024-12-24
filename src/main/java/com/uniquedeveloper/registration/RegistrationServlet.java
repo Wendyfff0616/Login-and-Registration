@@ -54,11 +54,12 @@ public class RegistrationServlet extends HttpServlet {
 
             if (rowCount > 0) {
                 request.setAttribute("status", "success"); // database insertion successful
-                request.getRequestDispatcher("registration.jsp").forward(request, response);
             } else {
                 request.setAttribute("status", "failed");
-                request.getRequestDispatcher("registration.jsp").forward(request, response);
             }
+
+            dispatcher.forward(request, response);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

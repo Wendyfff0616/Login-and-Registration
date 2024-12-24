@@ -24,14 +24,17 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String uemail = request.getParameter("username");
-        String upwd = request.getParameter("pass");
+        String uemail = request.getParameter("email");
+        String upwd = request.getParameter("password");
         HttpSession session = request.getSession();
         RequestDispatcher dispatcher = null;
         Connection con = null;
 
+//        System.out.println("Received username: " + uemail);
+//        System.out.println("Received password: " + upwd);
+
         try {
-            Class.forName("com.mysql.jdbc.Driver"); // enables the application to recognize the MySQL database
+            Class.forName("com.mysql.cj.jdbc.Driver"); // enables the application to recognize the MySQL database
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/youtube?useSSL=false","root","root");
             PreparedStatement pst = con.prepareStatement("select * from users where uemail = ? and upwd = ?");
 
@@ -40,9 +43,13 @@ public class Login extends HttpServlet {
 
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
+//                System.out.println("Login successful for user: " + rs.getString("uemail"));
+                session.setAttribute("email", rs.getString("uemail"));
                 session.setAttribute("name", rs.getString("uname"));
-                dispatcher = request.getRequestDispatcher("index.jsp");
+                response.sendRedirect("index.jsp");
+                return;
             } else {
+//                System.out.println("Login failed - no matching user found");
                 request.setAttribute("status", "failed");
                 dispatcher = request.getRequestDispatcher("login.jsp");
             }

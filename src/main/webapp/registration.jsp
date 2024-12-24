@@ -39,8 +39,8 @@
 									type="email" name="email" id="email" placeholder="Your Email" />
 							</div>
 							<div class="form-group">
-								<label for="pass"><i class="zmdi zmdi-lock"></i></label> <input
-									type="password" name="pass" id="pass" placeholder="Password" />
+								<label for="password"><i class="zmdi zmdi-lock"></i></label> <input
+									type="password" name="password" id="password" placeholder="Password" />
 							</div>
 							<div class="form-group">
 								<label for="re_pass"><i class="zmdi zmdi-lock-outline"></i></label>

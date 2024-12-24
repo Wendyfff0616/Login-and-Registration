@@ -29,7 +29,7 @@ public class RegistrationServlet extends HttpServlet {
 
         String uname = request.getParameter("name");
         String uemail = request.getParameter("email");
-        String upwd = request.getParameter("pass");
+        String upwd = request.getParameter("password");
         String umobile = request.getParameter("contact");
         RequestDispatcher dispatcher = null;
         Connection con = null;
@@ -41,7 +41,7 @@ public class RegistrationServlet extends HttpServlet {
 //        out.print(umobile);
 
         try {
-            Class.forName("com.mysql.jdbc.Driver"); // enables the application to recognize the MySQL database
+            Class.forName("com.mysql.cj.jdbc.Driver"); // enables the application to recognize the MySQL database
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/youtube?useSSL=false","root","root");
             PreparedStatement pst = con.prepareStatement("insert into users(uname, upwd, uemail, umobile) values(?,?,?,?)");
             pst.setString(1, uname);

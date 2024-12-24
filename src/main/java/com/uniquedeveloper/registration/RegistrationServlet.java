@@ -23,5 +23,13 @@ public class RegistrationServlet extends HttpServlet {
 
         String uname = request.getParameter("name");
         String uemail = request.getParameter("email");
+        String upwd = request.getParameter("pass");
+        String umobile = request.getParameter("contact");
+
+        PrintWriter out = response.getWriter();
+        out.print(uname);
+        out.print(uemail);
+        out.print(upwd);
+        out.print(umobile);
     }
 }
